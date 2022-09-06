@@ -1,0 +1,12 @@
+framework:
+    http_client:
+        max_host_connections: 100
+        default_options:
+            headers: { 'Accept': 'application/json' }
+        scoped_clients:
+            api_the_movie_db:
+                base_uri: '%env(API_URI)%'
+                headers: { 'Accept': 'application/ld+json' }
+                query: 
+                    api_key: '%env(API_KEY)%'
+            
