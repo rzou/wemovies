@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+
+    www:
+        build: docker
+        container_name: www_docker_symfony
+        ports:
+          - "8080:80"
+        volumes:
+            - ./docker/vhosts:/etc/apache2/sites-enabled
+            - ./:/var/www/wemovies
+        restart: always
+        networks:
+            - dev
+
+networks:
+    dev:
