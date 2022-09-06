@@ -18,9 +18,9 @@ class BaseRepository
         $this->client = $client;
     }
 
-    public function get(string $uri): ResponseInterface
+    public function get(string $uri)
     {
-        return $this->client->request('GET', '/3/'.$uri);
+        return $this->client->request('GET', '/3'.$uri);
     }
 
 }

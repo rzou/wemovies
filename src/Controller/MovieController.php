@@ -21,13 +21,14 @@ class MovieController extends AbstractController
      */
     public function movies(Request $request, MovieService $movieService): Response
     {
-        //$client = $this->movieRepository->get('/3/movie/550', []);
-        // return new Response($this->renderView(
-        //     'movies.html.twig'
-        // ));
-        $movie = $movieService->getMovie(5);
-        var_dump($movie);
-        exit;
+        $result = $movieService->getMovies();
+        return new Response($this->renderView(
+            'movies.html.twig',
+            [
+                'genres' => $result['genres'],
+                'movies' => $result['movies'],
+            ]
+        ));
     }
 
 }
