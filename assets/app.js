@@ -27,3 +27,12 @@ $("input[type='radio']").change(function (e) {
         }).show();
     }
 });
+
+$("#searchInput").on("keyup", function() {
+    var value = $(this).val();
+    var reg = new RegExp(value);
+    $(".card").hide();
+    $(".card").filter(function() {
+      return $("h5", this).text().match(reg);
+    }).show();
+});

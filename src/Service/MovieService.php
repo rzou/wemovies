@@ -8,7 +8,7 @@ class MovieService
 {
     const GET_GENRES = '/genre/movie/list';
     const GET_MOVIE_BY_ID = '/movie/{movie_id}';
-    const GET_MOVIES = '/discover/movie?sort_by=popularity.desc';
+    const GET_MOVIES = '/discover/movie?sort_by=vote_average.desc';
 
     /** BaseRepository */
     private $repository;
