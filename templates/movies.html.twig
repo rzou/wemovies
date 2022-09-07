@@ -17,16 +17,14 @@
     </div>
     <div class="movies">
         {% for movie in movies %}
-			<div class="card" value="{{movie.genre_ids}}">
-					<div class="card"  style="width: 18rem;">
-                        <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top" alt="{{ movie.title }}">
-						<div class="card-body">
-							<h5 class="card-title">{{ movie.title }}</h5>
-							<p class="card-text">{{ movie.overview }}</p>
+			<div class="card" value="{{movie.genre_ids}}" style="width: 18rem;">
+                <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top" alt="{{ movie.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.overview }}</p>
 
-							<button id="readmore">Lire les détails</button>
-						</div>
-					</div>
+                    <button id="readmore">Lire les détails</button>
+                </div>
 			</div>
 		{% endfor %}
     </div>
