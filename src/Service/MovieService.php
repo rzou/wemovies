@@ -28,7 +28,6 @@ class MovieService
     public function getMovies()
     {
         $result = [];
-        $list = [];
         $uri = self::GET_GENRES;
         $data = $this->repository->get($uri);
         $genres = $data->toArray()['genres'];
@@ -36,17 +35,15 @@ class MovieService
         $genres = array_map(function($genre){
             return $genre['id'];
         }, $genres);
-        foreach($genres as $genre) {
-            $list[$genre] = [];
-        }
         $uri = self::GET_MOVIES;
         $data = $this->repository->get($uri);
         $movies = $data->toArray()['results'];
-        $movies = array_map(function($movie){
-            foreach($movie['genre_ids'] as $id){
-                $list[$id][] = $movie;
-            }
-        }, $movies);
+        $list = [];
+        foreach($movies as $movie) {
+            $genre_ids = implode("-", $movie['genre_ids']);
+            $movie['genre_ids'] = $genre_ids;
+            $list[] = $movie;
+        }
         $result['movies'] = $list;
         return $result;
     }

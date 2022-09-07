@@ -8,19 +8,26 @@
     <div>
     {% for genre in genres %}
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="{{genre.id}}">
+            <input class="form-check-input" type="radio" name="genre" value="" id="{{genre.id}}">
             <label class="form-check-label" for="{{genre.id}}">
                 {{genre.name}}
             </label>
         </div>
     {% endfor %}
     </div>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Lire le détails</a>
-        </div>
+    <div class="movies">
+        {% for movie in movies %}
+			<div class="card" value="{{movie.genre_ids}}">
+					<div class="card"  style="width: 18rem;">
+                        <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top" alt="{{ movie.title }}">
+						<div class="card-body">
+							<h5 class="card-title">{{ movie.title }}</h5>
+							<p class="card-text">{{ movie.overview }}</p>
+
+							<button id="readmore">Lire les détails</button>
+						</div>
+					</div>
+			</div>
+		{% endfor %}
     </div>
 {% endblock %}

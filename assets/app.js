@@ -10,5 +10,20 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+import $ from "jquery";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+$("input[type='radio']").change(function (e) {
+    e.stopImmediatePropagation();
+    var id = this.id;
+    var items = $(".card");
+    if (id === null) {
+        $items.show();
+    } else {
+        items.hide();
+        items.filter(function (index) {
+            let ids = $(this).attr("value");
+            const genres = ids.split('-');
+            return genres.includes(id);
+        }).show();
+    }
+});
