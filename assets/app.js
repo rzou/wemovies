@@ -15,24 +15,35 @@ import $ from "jquery";
 $("input[type='radio']").change(function (e) {
     e.stopImmediatePropagation();
     var id = this.id;
-    var items = $(".card");
-    if (id === null) {
-        $items.show();
-    } else {
-        items.hide();
-        items.filter(function (index) {
-            let ids = $(this).attr("value");
-            const genres = ids.split('-');
-            return genres.includes(id);
-        }).show();
-    }
+    $.ajax({
+        type: "POST",
+        url: "/movies/genre/"+id,
+        data: JSON.stringify({ 'genreId': id }),
+        context: '#movies',
+        success: function (returnedData) {
+            $(this).empty().html(returnedData);
+            $("#" + id).prop("checked", true);
+            //$('.mostPopular').hide();
+        }
+    });
 });
 
-$("#searchInput").on("keyup", function() {
-    var value = $(this).val();
-    var reg = new RegExp(value);
-    $(".card").hide();
-    $(".card").filter(function() {
-      return $("h5", this).text().match(reg);
-    }).show();
-});
+$('#search').on('keyup', function (e) {
+    //e.stopImmediatePropagation();
+    let val = $(this).val();
+    if (val == '') {
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: "/movies/search",
+        data: JSON.stringify({ 'query': val }),
+        context: '#movies',
+        success: function (returnedData) {
+            $(this).empty().html(returnedData);
+            return true;
+        }
+    });
+})
+
+

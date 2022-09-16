@@ -1,0 +1,27 @@
+{% set layout = 'base.html.twig' %}
+
+{% extends layout %}
+
+{% block body %}
+    {{ parent() }}
+    <h1> A propos de We Movies! </h1>
+    
+    <div class="container">
+        <div class="row">
+            {% include 'movies/search.html.twig' %}
+        </div>
+        <div class="row">
+            <aside class='col-sm-4'>
+                {% include 'movies/genres.html.twig' with {
+                    genres: genres
+                }%}
+            </aside>
+            <div id="movies" class="movies col-sm-8">
+                {% include 'movies/movies.html.twig' with {
+                    movies: movies,
+                    bestMovie: bestMovie
+                }%}
+            </div>
+        </div>
+    </div>
+{% endblock %}

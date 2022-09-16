@@ -19,16 +19,53 @@ class MovieController extends AbstractController
      *
      * @return Response
      */
-    public function movies(Request $request, MovieService $movieService): Response
+    public function moviesAction(Request $request, MovieService $movieService): Response
     {
-        $result = $movieService->getMovies();
         return new Response($this->renderView(
-            'movies.html.twig',
+            'movies/index.html.twig',
             [
-                'genres' => $result['genres'],
-                'movies' => $result['movies'],
+                'genres' => $movieService->getGenres(),
+                'movies' => $movieService->getMovies(),
+                'bestMovie' => $movieService->getMostPopular()
             ]
         ));
     }
-
+    /**
+     * @Route(
+     *     path = "/movies/search",
+     *     name="searchMovies"
+     * )
+     *
+     * @return Response
+     */
+    public function searchAction(Request $request, MovieService $movieService) {
+        if ($request->isXmlHttpRequest()) {
+            $data = $request->toArray(); 
+            $movies = $movieService->searchMovies($data['query']);
+            return $this->render('movies/movies.html.twig', [
+                'movies' => $movies['movies'],
+                'bestMovie' => $movies['bestMovie']
+            ]);
+        }
+    }
+    /**
+     * @Route(
+     *     path = "/movies/genre/{genreId}",
+     *     name="moviesByGenre",
+     *     requirements={
+     *          "genreId"="\d+"
+     *     }
+     * )
+     *
+     * @return Response
+     */
+    public function moviesByGenreAction(Request $request, MovieService $movieService, int $genreId) {
+        if ($request->isXmlHttpRequest()) {
+            $popularMovieData = $movieService->getMoviesByGenre($genreId);
+            return $this->render('movies/movies.html.twig', [                
+                'movies' => $popularMovieData['movies'],
+                'bestMovie' => $popularMovieData['bestMovie']
+            ]);
+        }
+    }
 }

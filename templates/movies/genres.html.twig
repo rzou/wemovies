@@ -1,0 +1,8 @@
+{% for genre in genres %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="genre" id="{{genre.id}}">
+        <label class="form-check-label" for="{{genre.id}}">
+            {{genre.name}}
+        </label>
+    </div>
+{% endfor %}
